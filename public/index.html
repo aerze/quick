@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Peer Test</title>
+    <script src="http://cdn.peerjs.com/0.3/peer.js"></script>
+    <script type="text/javascript" src="/js/login.js"></script>
+</head>
+<body>
+<div class="loginMenu">
+    <input class="loginInput" type="text">
+    <button class="loginButton">Log In</button>
+</div>
+
+<button class="send">Send</button>
+<button class="connect">Connect</button>
+<div class="text"></div>
+<script type="text/javascript">
+/* global Peer */
+'use strict';
+var input = document.querySelector('.input');
+var send = document.querySelector('.send');
+var login = document.querySelector('.login');
+var connect = document.querySelector('.connect');
+var textbox = document.querySelector('.text');
+var peer,
+    conn;
+
+input.read = function(callback) {
+    var data = this.value;
+    this.value = '';
+    callback(data);
+};
+
+send.onclick = function() {
+    input.read(function(data) {
+        if (conn) {
+            textbox.add(data);
+            conn.send(data);
+        } else {
+            textbox.add('CONNECT TO OTHER USER FIRST');
+        }
+    });
+};
+login.onclick = function() {
+    input.read(function(data) {
+        peer = new Peer(data, {key: 'lovhnkqu8h69a4i'});
+        peer.on('open', function(id) {
+            console.log('Peer ID: ' + id);
+        });
+        peer.on('connection', function(conn) {
+            conn.on('data', function(data) {
+                textbox.add(data);
+            });
+        });
+    });
+};
+connect.onclick = function() {
+    input.read(function(data) {
+        conn = peer.connect(data);
+    });
+};
+textbox.add = function(data) {
+    console.log(data);
+    this.innerHTML += '<br>' + data;
+};
+
+// var connection = peer.connect('irealydk');
+// connection.on('open', function() {
+//     connection.send('hello');
+// });
+
+// peer.on('connection', function(connection) {
+//     connection.on('data', function(data) {
+//         console.log(data);
+//     });
+// });
+</script>
+
+</body>
+</html>
