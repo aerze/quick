@@ -1,6 +1,6 @@
 'use strict';
-
 console.log('login.js :: loaded');
+
 var peer;
 var connectionsArray = [];
 
@@ -17,11 +17,11 @@ loginInput.read = function(callback) {
 loginButton.onclick = function() {
     loginInput.read(function(data) {
         peer = new Peer(data, {key: 'lovhnkqu8h69a4i'});
-
-        peerInit(peer);
-
         peer.on('open', function(id) {
             console.log('Peer ID: ' + id);
+            help.xhr('POST', '/login', id, function(res) {
+                console.log(res);
+            });
         });
         peer.on('connection', function(conn) {
             conn.on('data', function(data) {

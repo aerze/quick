@@ -14,13 +14,22 @@ var localAddress = {};
 
 var app = express();
 app.use(cookieParser());
+// app.use(bodyParser.raw());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.text());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+var people = [];
+app.post('/login', function(req, res) {
+    people.push(req.body);
+    console.log(req.body);
+    res.send('OK');
+});
 
-var server = app.listen(80, function() {
+
+var server = app.listen(3000, function() {
     localAddress = server.address();
     console.log('Server: Listening on port ' + server.address().port);
     console.log('\tMax Sockets: ' + http.globalAgent.maxSockets);

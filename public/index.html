@@ -3,7 +3,6 @@
 <head>
     <title>Peer Test</title>
     <script src="http://cdn.peerjs.com/0.3/peer.js"></script>
-    <script type="text/javascript" src="/js/login.js"></script>
 </head>
 <body>
 <div class="loginMenu">
@@ -17,7 +16,7 @@
 <script type="text/javascript">
 /* global Peer */
 'use strict';
-var input = document.querySelector('.input');
+// var input = document.querySelector('.input');
 var send = document.querySelector('.send');
 var login = document.querySelector('.login');
 var connect = document.querySelector('.connect');
@@ -25,11 +24,11 @@ var textbox = document.querySelector('.text');
 var peer,
     conn;
 
-input.read = function(callback) {
-    var data = this.value;
-    this.value = '';
-    callback(data);
-};
+// input.read = function(callback) {
+//     var data = this.value;
+//     this.value = '';
+//     callback(data);
+// };
 
 send.onclick = function() {
     input.read(function(data) {
@@ -75,6 +74,7 @@ textbox.add = function(data) {
 //     });
 // });
 </script>
-
+<script type="text/javascript" src="/js/help.js"></script>
+<script type="text/javascript" src="/js/login.js"></script>
 </body>
 </html>
